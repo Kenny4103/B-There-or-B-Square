@@ -1,89 +1,67 @@
 using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
 public class GridMovement : MonoBehaviour
 {
-    // Allows you to hold down a key for movement.
     [SerializeField] private bool isRepeatedMovement = false;
-    // Time in seconds to move between one grid position and the next.
     [SerializeField] private float moveDuration = 0.1f;
-    // The size of the grid
     [SerializeField] private float gridSize = 1f;
-    private Rigidbody2D _rb;
+
     private bool isMoving = false;
-
-    // Update is called once per frame
-    private void Update()
-    {
-        // Only process on move at a time.
-        if (!isMoving)
-        {
-            // Accomodate two different types of moving.
-            System.Func<KeyCode, bool> inputFunction;
-            if (isRepeatedMovement)
-            {
-                // GetKey repeatedly fires.
-                inputFunction = Input.GetKey;
-            }
-            else
-            {
-                // GetKeyDown fires once per keypress
-                inputFunction = Input.GetKeyDown;
-            }
-
-            // If the input function is active, move in the appropriate direction.
-            if (inputFunction(KeyCode.UpArrow))
-            {
-                StartCoroutine(Move(Vector2.up));
-            }
-            else if (inputFunction(KeyCode.DownArrow))
-            {
-                StartCoroutine(Move(Vector2.down));
-            }
-            else if (inputFunction(KeyCode.LeftArrow))
-            {
-                StartCoroutine(Move(Vector2.left));
-            }
-            else if (inputFunction(KeyCode.RightArrow))
-            {
-                StartCoroutine(Move(Vector2.right));
-            }
-        }
-    }
+    private Rigidbody2D rb;
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
+        rb.gravityScale = 0; // Optional for top-down movement
+        rb.freezeRotation = true;
     }
 
-    // Smooth movement between grid positions.
+    private void Update()
+    {
+        if (!isMoving)
+        {
+            System.Func<KeyCode, bool> inputFunction = isRepeatedMovement ? Input.GetKey : Input.GetKeyDown;
+
+            if (inputFunction(KeyCode.UpArrow))
+                StartCoroutine(Move(Vector2.up));
+            else if (inputFunction(KeyCode.DownArrow))
+                StartCoroutine(Move(Vector2.down));
+            else if (inputFunction(KeyCode.LeftArrow))
+                StartCoroutine(Move(Vector2.left));
+            else if (inputFunction(KeyCode.RightArrow))
+                StartCoroutine(Move(Vector2.right));
+        }
+    }
+
     private IEnumerator Move(Vector2 direction)
     {
         isMoving = true;
 
-        Vector2 startPosition = transform.position;
-        Vector2 endPosition = startPosition + (direction * gridSize);
+        Vector2 startPosition = rb.position;
+        Vector2 targetPosition = startPosition + (direction * gridSize);
 
-        // Cast a box to check for collisions
-        RaycastHit2D hit = Physics2D.BoxCast(startPosition, _rb.GetComponent<BoxCollider2D>().size, 0f, direction, gridSize, LayerMask.GetMask("Obstacle"));
-
-        if (hit.collider != null)
+        // Check for obstacle using Rigidbody2D.Cast
+        RaycastHit2D[] hits = new RaycastHit2D[1];
+        int hitCount = rb.Cast(direction, hits, gridSize - 0.01f); // Small epsilon to prevent false positives
+        if (hitCount > 0 && !hits[0].collider.isTrigger)
         {
-            // Hit a wall or obstacle, cancel move
             isMoving = false;
-            yield break;
+            yield break; // Cancel move if collision ahead
         }
 
-        float elapsedTime = 0;
+        float elapsedTime = 0f;
         while (elapsedTime < moveDuration)
         {
             elapsedTime += Time.deltaTime;
             float percent = elapsedTime / moveDuration;
-            transform.position = Vector2.Lerp(startPosition, endPosition, percent);
+            Vector2 newPosition = Vector2.Lerp(startPosition, targetPosition, percent);
+            rb.MovePosition(newPosition);
             yield return null;
         }
 
-        transform.position = endPosition;
+        rb.MovePosition(targetPosition);
         isMoving = false;
     }
 }
