@@ -262,7 +262,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 7db697401f982a4478f92854a48193d3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d9664360cc90220459a425d9e55c3a5c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -647,6 +647,7 @@ MonoBehaviour:
   isRepeatedMovement: 0
   moveDuration: 0.1
   gridSize: 1
+  fallenTilePrefab: {fileID: 1347921676858025407, guid: dafc00691b3aff440b67c31af4b9c03d, type: 3}
 --- !u!212 &1194066540
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -690,7 +691,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

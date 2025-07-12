@@ -8,13 +8,15 @@ public class GridMovement : MonoBehaviour
     [SerializeField] private float moveDuration = 0.1f;
     [SerializeField] private float gridSize = 1f;
 
+    [SerializeField] private GameObject fallenTilePrefab;
+
     private bool isMoving = false;
     private Rigidbody2D rb;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        rb.gravityScale = 0; // Optional for top-down movement
+        rb.gravityScale = 0;
         rb.freezeRotation = true;
     }
 
@@ -42,13 +44,19 @@ public class GridMovement : MonoBehaviour
         Vector2 startPosition = rb.position;
         Vector2 targetPosition = startPosition + (direction * gridSize);
 
-        // Check for obstacle using Rigidbody2D.Cast
+        // Check for obstacle
         RaycastHit2D[] hits = new RaycastHit2D[1];
-        int hitCount = rb.Cast(direction, hits, gridSize - 0.01f); // Small epsilon to prevent false positives
+        int hitCount = rb.Cast(direction, hits, gridSize - 0.01f);
         if (hitCount > 0 && !hits[0].collider.isTrigger)
         {
             isMoving = false;
-            yield break; // Cancel move if collision ahead
+            yield break;
+        }
+
+        // Leave a FallenTile at the starting position
+        if (fallenTilePrefab != null)
+        {
+            Instantiate(fallenTilePrefab, startPosition, Quaternion.identity);
         }
 
         float elapsedTime = 0f;
