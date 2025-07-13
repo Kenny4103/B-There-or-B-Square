@@ -4,7 +4,10 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - Obstacle
+  - DollarTile
+  - GoalTile
+  - FallenTile
+  - Tile
   layers:
   - Default
   - TransparentFX
