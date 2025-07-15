@@ -8,7 +8,7 @@ public class DollarTile : MonoBehaviour
 
     private void Awake()
     {
-        int[] dollarOptions = { 10, 20, 30, 40, 50 };
+        int[] dollarOptions = { 20, 40, 60, 80, 100, 110, 120 };
         DollarValue = dollarOptions[Random.Range(0, dollarOptions.Length)];
 
         if (valueText != null)

@@ -60,7 +60,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 0
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 4
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!114 &6652839178806775142
 MonoBehaviour:
@@ -114,7 +114,7 @@ GameObject:
   - component: {fileID: 5654863023187900965}
   - component: {fileID: 8273108069650722272}
   m_Layer: 5
-  m_Name: Text
+  m_Name: Value
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -136,8 +136,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.33}
-  m_SizeDelta: {x: 160, y: 98.66}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5654863023187900965
 CanvasRenderer:
@@ -192,9 +192,9 @@ GameObject:
   - component: {fileID: 4979402210638641336}
   - component: {fileID: 5442915185608126563}
   - component: {fileID: 1320537780605990935}
-  - component: {fileID: 5070169628734804940}
+  - component: {fileID: 3103529549869721556}
   m_Layer: 0
-  m_Name: Goal Tile
+  m_Name: DollarTile 2
   m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -259,9 +259,9 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 524a7e93732d42c4eb50eb85f2df4f0f, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.6666667, g: 0.6666667, b: 0.6666667, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -317,7 +317,7 @@ BoxCollider2D:
   m_AutoTiling: 0
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &5070169628734804940
+--- !u!114 &3103529549869721556
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,11 +326,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4861597649868540405}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a89c8c09ff4038f40afb8eb9076cd07b, type: 3}
+  m_Script: {fileID: 11500000, guid: 8302fbfe41fd60d41a4a8e4535526a62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goalText: {fileID: 8273108069650722272}
-  minGoalAmount: 500
-  maxGoalAmount: 2500
-  triggerRadius: 0.5
-  nextLevel: Level2
+  valueText: {fileID: 8273108069650722272}
