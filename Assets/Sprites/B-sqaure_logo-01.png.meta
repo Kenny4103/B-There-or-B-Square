@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      B-sqaure_logo-01_0: -3237919142508913339
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
